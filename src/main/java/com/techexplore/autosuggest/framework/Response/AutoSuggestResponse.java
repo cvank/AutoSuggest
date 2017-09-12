@@ -1,8 +1,5 @@
 package com.techexplore.autosuggest.framework.Response;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.List;
 

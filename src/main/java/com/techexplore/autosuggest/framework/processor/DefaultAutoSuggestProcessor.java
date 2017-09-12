@@ -3,15 +3,12 @@ package com.techexplore.autosuggest.framework.processor;
 import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

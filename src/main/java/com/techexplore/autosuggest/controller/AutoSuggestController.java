@@ -3,9 +3,7 @@ package com.techexplore.autosuggest.controller;
 import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import com.techexplore.autosuggest.service.AutoSuggestInvoker;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
 /**

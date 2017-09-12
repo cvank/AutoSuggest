@@ -4,12 +4,9 @@ import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

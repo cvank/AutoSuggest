@@ -5,8 +5,6 @@ import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import com.techexplore.autosuggest.framework.Response.ResponseCode;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;

@@ -4,7 +4,6 @@ import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Field;
 

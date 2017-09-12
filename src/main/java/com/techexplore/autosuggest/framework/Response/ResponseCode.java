@@ -1,8 +1,5 @@
 package com.techexplore.autosuggest.framework.Response;
 
-import com.sun.deploy.net.HttpResponse;
-import org.springframework.http.HttpStatus;
-
 /**
  * Created by chandrashekar.v on 9/12/2017.
  */

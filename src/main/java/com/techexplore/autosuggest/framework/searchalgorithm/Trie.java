@@ -1,6 +1,7 @@
 package com.techexplore.autosuggest.framework.searchalgorithm;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by chandrashekar.v on 9/12/2017.

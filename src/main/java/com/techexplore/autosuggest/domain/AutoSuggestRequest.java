@@ -4,8 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.function.IntPredicate;
-
 /**
  * Created by chandrashekar.v on 9/12/2017.
  */

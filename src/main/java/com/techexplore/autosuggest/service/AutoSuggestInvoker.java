@@ -10,12 +10,11 @@ import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -63,19 +62,21 @@ public class AutoSuggestInvoker {
     }
 
     private Optional<TrieNode> loadData() {
-        Resource resource = resourceLoader.getResource("classpath:data/all_india_PO_list_without_APS_offices_ver2.csv");
-        boolean isReadble = resource.isReadable();
+        Resource resource = resourceLoader.getResource("classpath:/data/all_india_PO_list_without_APS_offices_ver2.csv");
+
         List<String> allCities = null;
-        if (isReadble) {
+        if (!Objects.isNull(resource)) {
             try {
-                String path = resource.getFile().getPath();
-
-                allCities = Files.lines(Paths.get(path)).parallel().skip(1).map(line -> Arrays.stream(line.split(","))
-                        .skip(7)
-                        .findFirst())
-                        .filter(s -> s.isPresent()).map(s -> s.get()).
-                                collect(Collectors.toList());
-
+                InputStream citiesDataStream = resource.getInputStream(); // <-- this is the difference
+                try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(citiesDataStream))) {
+                    allCities = bufferedReader.lines().parallel().skip(1).map(line -> Arrays.stream(line.split(","))
+                            .skip(7)
+                            .findFirst())
+                            .filter(s -> s.isPresent()).map(s -> s.get()).
+                                    collect(Collectors.toList());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

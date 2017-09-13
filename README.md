@@ -29,7 +29,7 @@ git clone https://github.com/cvank/AutoSuggest
 * And run following command.
 ```java -jar assesment-0.0.1-SNAPSHOT.jar```
 
-** Method 2:**
+**Method 2:**
 * Go to run folder at below location
 https://github.com/cvank/AutoSuggest/tree/master/run
 * download jar

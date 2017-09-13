@@ -4,6 +4,7 @@ import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import com.techexplore.autosuggest.framework.Response.ResponseCode;
+import com.techexplore.autosuggest.framework.data.DataLoader;
 import com.techexplore.autosuggest.framework.processor.AbstractAutoSuggestProcessor;
 import com.techexplore.autosuggest.framework.searchalgorithm.Trie;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
@@ -36,19 +37,17 @@ public class AutoSuggestInvoker {
     @Qualifier(value = ApplicationConstants.DEFAULT)
     private AbstractAutoSuggestProcessor defaultProcessor;
 
-    private static boolean isDataDumpComplete = false;
-
     @Autowired
     ApplicationContext applicationContext;
 
     @Autowired
-    ResourceLoader resourceLoader;
+    DataLoader dataLoader;
 
     public AutoSuggestResponse invoke(final AutoSuggestRequest request, AutoSuggestResponse response) {
 
         // load data on first request.
         Optional<TrieNode> data = loadData();
-        if (isDataDumpComplete && data.isPresent()) {
+        if (!Objects.isNull(data) && data.isPresent()) {
             AbstractAutoSuggestProcessor processor = null;
             if (request.isFuzziness())
                 processor = fuzzyProcessor;
@@ -61,32 +60,17 @@ public class AutoSuggestInvoker {
         return response;
     }
 
+    /**
+     * Loads trie data.
+     *
+     * @return
+     */
     private Optional<TrieNode> loadData() {
-        Resource resource = resourceLoader.getResource("classpath:/data/all_india_PO_list_without_APS_offices_ver2.csv");
+        Trie trie = dataLoader.loadData();
+        if (Objects.isNull(trie))
+            return Optional.empty();
 
-        List<String> allCities = null;
-        if (!Objects.isNull(resource)) {
-            try {
-                InputStream citiesDataStream = resource.getInputStream(); // <-- this is the difference
-                try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(citiesDataStream))) {
-                    allCities = bufferedReader.lines().parallel().skip(1).map(line -> Arrays.stream(line.split(","))
-                            .skip(7)
-                            .findFirst())
-                            .filter(s -> s.isPresent()).map(s -> s.get()).
-                                    collect(Collectors.toList());
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (!Objects.isNull(allCities)) {
-            Trie trie = new Trie(allCities);
-            isDataDumpComplete = !Objects.isNull(trie.getRoot());
-            return Optional.of(trie.getRoot());
-        }
+        return Optional.ofNullable(trie.getRoot());
 
-        return Optional.empty();
     }
 }

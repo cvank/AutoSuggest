@@ -3,6 +3,8 @@ package com.techexplore.autosuggest.controller;
 import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import com.techexplore.autosuggest.service.AutoSuggestInvoker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class AutoSuggestController {
+    private static final Logger LOG = LoggerFactory.getLogger(AutoSuggestController.class);
 
     @Autowired
     AutoSuggestInvoker invoker;
+
 
     /**
      * Handles post request with request body.
@@ -39,7 +43,11 @@ public class AutoSuggestController {
      */
     @RequestMapping(value = "/suggest_cities", method = RequestMethod.GET, produces = {"application/json"})
     public @ResponseBody
-    AutoSuggestResponse suggest(@RequestParam("start") String start, @RequestParam("atmost") int atmost, @RequestParam("fuzzy") boolean fuzziness) {
+    AutoSuggestResponse suggest(@RequestParam("start") String start,
+                                @RequestParam("atmost") int atmost,
+                                @RequestParam("fuzzy") boolean fuzziness) {
+
+
         AutoSuggestRequest request = new AutoSuggestRequest();
         request.setAtmost(atmost);
         request.setFuzziness(fuzziness);
@@ -60,6 +68,7 @@ public class AutoSuggestController {
     @RequestMapping(value = "/suggest_cities2", method = RequestMethod.GET, produces = {"text/plain"})
     public @ResponseBody
     String suggest2(@RequestParam("start") String start, @RequestParam("atmost") int atmost, @RequestParam("fuzzy") boolean fuzziness) {
+        LOG.info("Initiating auto suggestion feature. prefix:" + start);
         AutoSuggestRequest request = new AutoSuggestRequest();
         request.setAtmost(atmost);
         request.setFuzziness(fuzziness);

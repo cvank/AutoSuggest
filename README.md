@@ -21,11 +21,11 @@ http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=fuzzyscore
 
 **URL Params Explained:**
 
-* **start:**start of the search word
-* **atmost:**maximum results required to be displayed
-* **fuzzy:**(true/false): fuzzy search 
+* **start:** start of the search word
+* **atmost:** maximum results required to be displayed
+* **fuzzy:** (true/false): fuzzy search 
 * **algo:** Fuzzy search algorithm (**Jaro** by default.)
-* **threshold:**(only for Levenshtein): the more the value of threshold, the  liberal the results will be.
+* **threshold:** (only for Levenshtein): the more the value of threshold, the  liberal the results will be.
 
 
 ### Endpoint to generate JSON response

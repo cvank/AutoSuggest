@@ -8,6 +8,7 @@ http://localhost:8080/suggest_cities?start=port&atmost=10
 http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&threshold=4
 
 **Three types of Fuzzy search has been implemented.**
+
 **1. Levenshtein**
 http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=levenshtein
 

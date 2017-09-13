@@ -1,15 +1,17 @@
 package com.techexplore.autosuggest.domain;
 
+import com.techexplore.autosuggest.controller.AutoSuggestController;
 import org.apache.commons.lang3.BooleanUtils;
 
 import java.util.Objects;
 
 /**
  * Request pojo that will be used by spring to bind request params.
+ *
  * <p>
  * Created by chandrashekar.v on 9/12/2017.
  */
-public class AutoSuggestRequest {
+public class AutoSuggestRequest extends AutoSuggestController {
 
     private String start;
 
@@ -53,7 +55,10 @@ public class AutoSuggestRequest {
         return fuzziThreshold;
     }
 
-
+    /**
+     * RequestBuilder class exposed to build AutoSuggestionRequest.
+     *
+     */
     public static class RequestBuilder {
 
         private String start;

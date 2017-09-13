@@ -1,0 +1,12 @@
+com.techexplore.autosuggest
+com.techexplore.autosuggest.controller
+com.techexplore.autosuggest.domain
+com.techexplore.autosuggest.framework
+com.techexplore.autosuggest.framework.Response
+com.techexplore.autosuggest.framework.data
+com.techexplore.autosuggest.framework.exception
+com.techexplore.autosuggest.framework.processor
+com.techexplore.autosuggest.framework.searchalgorithm
+com.techexplore.autosuggest.intercept
+com.techexplore.autosuggest.service
+com.techexplore.autosuggest.util

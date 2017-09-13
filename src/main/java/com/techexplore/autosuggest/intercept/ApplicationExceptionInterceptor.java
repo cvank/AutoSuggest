@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * ApplicationExceptionInterceptor: Exception handling through AOP implementation that will be called post throwing any error during execution.
+ * <p>
  * Created by chandrashekar.v on 9/13/2017.
  */
 @Aspect
@@ -21,7 +23,7 @@ public class ApplicationExceptionInterceptor {
     }
 
     @AfterThrowing("applicationLevelInterceptor()")
-    public void interceptMiriSearchService(ProceedingJoinPoint pjp) throws AutoSuggestException {
+    public void intercept(ProceedingJoinPoint pjp) throws AutoSuggestException {
 
         String interceptMessage = pjp.getTarget().getClass().getSimpleName() + " : " + pjp.getSignature().getName();
         LOG.error("Exception @ " + interceptMessage);

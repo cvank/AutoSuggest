@@ -51,7 +51,6 @@ public class AutoSuggestController {
             AutoSuggestResponse response = triggerSearch(start, atMost, fuzziness, fuzziThreshold, caseSensitive);
             return response;
         } catch (Exception ex) {
-            ex.printStackTrace();
             throw new AutoSuggestException(ex.getMessage());
         }
 
@@ -90,7 +89,7 @@ public class AutoSuggestController {
     }
 
     /**
-     * utility method that invoke search for the given prefix.
+     * Utility method that invoke search for the given prefix.
      *
      * @param start
      * @param atMost
@@ -105,6 +104,7 @@ public class AutoSuggestController {
                                               Integer fuzziThreshold,
                                               Boolean caseSensitive) {
 
+        // Populate request object
         AutoSuggestRequest request = new AutoSuggestRequest
                 .RequestBuilder(start, defaultFuziThreshold, defaultAtmost)
                 .atmost(atMost).fuzziness(fuzziness)
@@ -113,6 +113,8 @@ public class AutoSuggestController {
                 .build();
 
         AutoSuggestResponse response = new AutoSuggestResponse();
+
+        // Invoke for auto suggestions.
         invoker.invoke(request, response);
         return response;
     }

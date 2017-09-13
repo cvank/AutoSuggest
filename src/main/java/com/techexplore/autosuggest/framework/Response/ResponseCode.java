@@ -1,6 +1,8 @@
 package com.techexplore.autosuggest.framework.Response;
 
 /**
+ * Response codes for Error and success cases.
+ *
  * Created by chandrashekar.v on 9/12/2017.
  */
 public interface ResponseCode {

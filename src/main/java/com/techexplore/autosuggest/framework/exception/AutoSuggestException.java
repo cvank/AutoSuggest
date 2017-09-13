@@ -1,6 +1,8 @@
 package com.techexplore.autosuggest.framework.exception;
 
 /**
+ * Custom exception for Auto suggestion.
+ *
  * Created by chandrashekar.v on 9/12/2017.
  */
 public class AutoSuggestException extends Exception {

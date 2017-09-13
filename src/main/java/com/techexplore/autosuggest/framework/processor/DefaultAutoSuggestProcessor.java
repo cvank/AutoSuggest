@@ -12,11 +12,16 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Default search suggestion processor when fuzzyiness is not required.
+ *
  * Created by chandrashekar.v on 9/12/2017.
  */
 @Service(value = ApplicationConstants.DEFAULT)
 public class DefaultAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
 
+    /**
+     * Counter to compare against number of results populated.
+     */
     private AtomicInteger counter = new AtomicInteger();
 
     public AtomicInteger getCounter() {
@@ -30,6 +35,13 @@ public class DefaultAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
         this.counter = counter;
     }
 
+    /**
+     * Search method that identifies matching suggestions.
+     *
+     * @param request
+     * @param node
+     * @return
+     */
     @Override
     public List<String> search(AutoSuggestRequest request, final TrieNode node) {
         getCounter();
@@ -39,6 +51,15 @@ public class DefaultAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
         return suggestions;
     }
 
+    /**
+     * Traverse through trie data structure and identifies matching words.
+     *
+     * @param prefix
+     * @param caseSensitive
+     * @param root
+     * @param atMost
+     * @param suggestions
+     */
     public void fetch(String prefix, final boolean caseSensitive, TrieNode root, final int atMost, List<String> suggestions) {
         prefix = prefix.toLowerCase();
         TrieNode lastNode = root;
@@ -57,7 +78,16 @@ public class DefaultAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
             caseInsensitiveSuggestions(lastNode, atMost, suggestions);
     }
 
+    /**
+     * Returns case sensitve suggestions for the given start word.
+     *
+     * @param prefix start word.
+     * @param parent current parent node
+     * @param atMost atmost suggestions need to be returned
+     * @param suggestions list of suggestions.
+     */
     private void caseSensitiveSuggestions(final String prefix, TrieNode parent, final int atMost, List<String> suggestions) {
+        // Exit if number of suggestions match the atmost value.
         if (getCounter().intValue() >= atMost)
             return;
 
@@ -69,12 +99,20 @@ public class DefaultAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
         if (parent.getChildren().size() == 0)
             return;
 
+        // for each child node recursively populate suggestions.
         for (Map.Entry<Character, TrieNode> entry : parent.getChildren().entrySet()) {
             caseSensitiveSuggestions(prefix + entry.getValue().getDisplayCharacter(), entry.getValue(), atMost, suggestions);
 
         }
     }
 
+    /**
+     * Case insensitive suggestions.
+     *
+     * @param parent current parent node
+     * @param atMost atmost suggestions need to be returned
+     * @param suggestions list of suggestions.
+     */
     private void caseInsensitiveSuggestions(TrieNode parent, final int atMost, List<String> suggestions) {
 
         if (getCounter().intValue() >= atMost)

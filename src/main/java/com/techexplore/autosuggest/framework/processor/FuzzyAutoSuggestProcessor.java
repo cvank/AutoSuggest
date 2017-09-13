@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Processor that populates suggestions by incorporating fuzzy logic.
+ * <p>
  * Created by chandrashekar.v on 9/12/2017.
  */
 @Service(value = ApplicationConstants.FUZZY)
@@ -26,8 +28,18 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
         return suggestions;
     }
 
+    /**
+     * Initiates fuzzy search for the given start word.Ideally it traverese through all nodes available in Trie dats structure and populates relevant words that has fuzzy value less than or euqual to given fuzzy threshold.
+     *
+     * @param fuzziness
+     * @param word
+     * @param root
+     * @param atMost
+     * @param suggestions
+     */
     private void processFuzzySearch(int fuzziness, String word, final TrieNode root, final int atMost, List<String> suggestions) {
 
+        // Prepopulate table with default values for the given search term.
         int[] currentRow = new int[word.length() + 1];
         for (int i = 0; i < currentRow.length; i++) {
             currentRow[i] = i;
@@ -35,12 +47,26 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
 
         TrieNode currentNode = root;
 
+        // Traverse through all trie nodes.
         for (Map.Entry<Character, TrieNode> entry : currentNode.getChildren().entrySet())
             searchRecursive(entry.getValue(), entry.getKey(), word, currentRow, fuzziness,
                     word.toCharArray(), atMost, suggestions);
 
     }
 
+    /**
+     * recursive method called for each trie node.
+     * It implements Levenshtein distance algorithm to retrieve words nearer to the given word.
+     *
+     * @param node
+     * @param key
+     * @param word
+     * @param previousRow
+     * @param fuzziness
+     * @param wordChars
+     * @param atMost
+     * @param suggestions
+     */
     private void searchRecursive(TrieNode node, Character key, String word, int[] previousRow, int fuzziness, char[] wordChars,
                                  final int atMost, List<String> suggestions) {
         if (getCounter().get() >= atMost)
@@ -72,6 +98,7 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
             getCounter().getAndIncrement();
         }
 
+        // Find minimum fuzzy value for the given character. If there is any exists then proceed with it;s child nodes for finding nearer words.
         OptionalInt min = Arrays.stream(currentRow).min();
         if (min.getAsInt() <= fuzziness) {
             {

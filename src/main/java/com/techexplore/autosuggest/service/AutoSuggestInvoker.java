@@ -16,6 +16,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
+ * AutoSuggestInvoker: Identifies relevant auggestion processor and triggers processing.
+ *
  * Created by chandrashekar.v on 9/12/2017.
  */
 @Service
@@ -31,6 +33,13 @@ public class AutoSuggestInvoker {
     @Autowired
     DataLoader dataLoader;
 
+    /**
+     * Method to be invoked for processing auto suggestions.
+     *
+     * @param request
+     * @param response
+     * @return
+     */
     public AutoSuggestResponse invoke(final AutoSuggestRequest request, AutoSuggestResponse response) {
 
         // load data on first request.

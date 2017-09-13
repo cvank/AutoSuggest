@@ -5,16 +5,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * response pojo that gets populated post search completion.
+ *
  * Created by chandrashekar.v on 9/12/2017.
  */
 public class AutoSuggestResponse {
 
+    /**
+     * Timestamp of the response
+     */
     private String time;
 
+    /**
+     * suggested words
+     */
     private List<String> suggestions;
 
+    /**
+     * Response code
+     */
     private ResponseCode responseCode;
 
+    /**
+     * Response message.
+     */
     private String responseMessage;
 
 
@@ -22,6 +36,10 @@ public class AutoSuggestResponse {
         this.time = String.valueOf(new Date());
     }
 
+    /**
+     * build response pojo for the given attributes.
+     * @param errorAttributes
+     */
     public AutoSuggestResponse(Map<String, Object> errorAttributes) {
         this.time = errorAttributes.getOrDefault("timestamp", String.valueOf(new Date())).toString();
         this.responseMessage = (String) errorAttributes.get("message");

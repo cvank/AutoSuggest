@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.util.Optional;
 
 /**
+ * FileUtils: Utility methods for file processing.
+ *
  * Created by chandrashekar.v on 9/13/2017.
  */
 public final class FileUtils {

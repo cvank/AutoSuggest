@@ -1,14 +1,14 @@
 # AutoSuggest
 
 ### Auto Suggestion Scenarios:
-** Normal Search:**
+**Normal Search:**
 http://localhost:8080/suggest_cities?start=port&atmost=10
 
-** Fuzzy Search:**
+**Fuzzy Search:**
 http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&threshold=4
 
 
-** Endpoint to generate JSON response**
+### Endpoint to generate JSON response
 * Normal
 http://localhost:8080/suggest_cities1?start=port&atmost=10
 
@@ -20,16 +20,18 @@ http://localhost:8080/suggest_cities1?start=oprtblair&atmost=10&fuzzy=true&thres
 
 ** Method 1: Build & Run **
 Clone code 
+```
 git clone https://github.com/cvank/AutoSuggest
+```
 go to parent folder
-run command - mvn clean install
+run command - ```mvn clean install```
 cd to target directory
-and run command.
-java -jar assesment-0.0.1-SNAPSHOT.jar
+and run following command.
+```java -jar assesment-0.0.1-SNAPSHOT.jar```
 
 ** Method 2:**
 go to run folder
 https://github.com/cvank/AutoSuggest/tree/master/run
 download jar
 and run command
-java -jar assesment-0.0.1-SNAPSHOT.jar
+```java -jar assesment-0.0.1-SNAPSHOT.jar```

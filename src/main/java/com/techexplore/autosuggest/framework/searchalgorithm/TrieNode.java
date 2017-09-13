@@ -99,7 +99,7 @@ public class TrieNode {
 
         final String lowerCase = word.toLowerCase();
         TrieNode node = this;
-        //Build node for each character of the give word.
+        //Build node for each character of the given word.
         for (char c : lowerCase.toCharArray()) {
             if (node.getChildNode(c) == null) {
                 node.getChildren().put(c, new TrieNode(c));

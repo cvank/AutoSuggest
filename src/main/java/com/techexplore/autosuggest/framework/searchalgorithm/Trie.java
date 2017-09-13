@@ -19,7 +19,7 @@ public class Trie {
 
     public Trie(String[] words) {
         root = new TrieNode();
-        Arrays.stream(words).parallel().forEach(word -> root.insert(word));
+        Arrays.stream(words).forEach(word -> root.insert(word));
     }
 
 
@@ -30,7 +30,7 @@ public class Trie {
      */
     public Trie(List<String> words) {
         root = new TrieNode();
-        words.parallelStream().forEach(word -> root.insert(word));
+        words.forEach(word -> root.insert(word));
     }
 
     public TrieNode getRoot() {

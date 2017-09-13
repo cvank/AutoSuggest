@@ -5,12 +5,12 @@
 http://localhost:8080/suggest_cities?start=port&atmost=10
 
 **Fuzzy Search:**
-http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&threshold=4
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true
 
 **Three types of Fuzzy search has been implemented.**
 
 **1. Levenshtein**
-http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=levenshtein
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=levenshtein&threshold=4
 
 **2. Jaro Winkler Distance**
 http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=jaro
@@ -25,7 +25,7 @@ http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=fuzzyscore
 http://localhost:8080/suggest_cities1?start=port&atmost=10
 
 * Fuzzy
-http://localhost:8080/suggest_cities1?start=oprtblair&atmost=10&fuzzy=true&threshold=4
+http://localhost:8080/suggest_cities1?start=oprtblair&atmost=10&fuzzy=true
 
 
 ### How to run:

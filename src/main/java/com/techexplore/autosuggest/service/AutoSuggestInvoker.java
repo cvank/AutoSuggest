@@ -10,19 +10,10 @@ import com.techexplore.autosuggest.framework.searchalgorithm.Trie;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by chandrashekar.v on 9/12/2017.
@@ -36,9 +27,6 @@ public class AutoSuggestInvoker {
     @Autowired
     @Qualifier(value = ApplicationConstants.DEFAULT)
     private AbstractAutoSuggestProcessor defaultProcessor;
-
-    @Autowired
-    ApplicationContext applicationContext;
 
     @Autowired
     DataLoader dataLoader;

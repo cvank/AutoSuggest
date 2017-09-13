@@ -2,19 +2,35 @@ package com.techexplore.autosuggest.framework.Response;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by chandrashekar.v on 9/12/2017.
  */
 public class AutoSuggestResponse {
 
-    private Date time;
+    private String time;
 
     private List<String> suggestions;
 
     private ResponseCode responseCode;
 
     private String responseMessage;
+
+
+    public AutoSuggestResponse() {
+        this.time = String.valueOf(new Date());
+    }
+
+    public AutoSuggestResponse(Map<String, Object> errorAttributes) {
+        this.time = errorAttributes.getOrDefault("timestamp", String.valueOf(new Date())).toString();
+        this.responseMessage = (String) errorAttributes.get("message");
+    }
+
+    public AutoSuggestResponse(final String message) {
+        this.time = String.valueOf(new Date());
+        this.responseMessage = message;
+    }
 
     public List<String> getSuggestions() {
         return suggestions;
@@ -24,11 +40,11 @@ public class AutoSuggestResponse {
         this.suggestions = suggestions;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

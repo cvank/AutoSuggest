@@ -1,14 +1,14 @@
 package com.techexplore.autosuggest.domain;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.BooleanUtils;
+
+import java.util.Objects;
 
 /**
+ * Request pojo that will be used by spring to bind request params.
+ * <p>
  * Created by chandrashekar.v on 9/12/2017.
  */
-@Component
-@Scope("prototype")
 public class AutoSuggestRequest {
 
     private String start;
@@ -17,68 +17,100 @@ public class AutoSuggestRequest {
 
     private boolean fuzziness = false;
 
-    public static final int DEFAULT_FUZZINESS = 3;
-
-    private int fuzziThreshold = 0;
+    private int fuzziThreshold;
 
     private boolean caseSensitive = false;
 
+    public AutoSuggestRequest(RequestBuilder requestBuilder) {
+        this.start = requestBuilder.start;
+        this.atmost = requestBuilder.atmost;
+        this.fuzziThreshold = requestBuilder.fuzziThreshold;
+        this.fuzziness = requestBuilder.fuzziness;
+        this.caseSensitive = requestBuilder.caseSensitive;
+    }
+
     public String getStart() {
-        if (StringUtils.isNoneBlank(start))
-            this.start = start;
-
-        else this.start = StringUtils.EMPTY;
-
         return start;
     }
 
-    public void setStart(String start) {
-
-        this.start = start;
-    }
 
     public boolean isFuzziness() {
         return fuzziness;
     }
 
-    public void setFuzziness(boolean fuzziness) {
-        this.fuzziness = fuzziness;
-    }
 
     public boolean isCaseSensitive() {
         return caseSensitive;
     }
 
-    public void setCaseSensitive(boolean caseSensitive) {
-        this.caseSensitive = caseSensitive;
-    }
 
     public int getAtmost() {
-        if (atmost >= 0)
-            this.atmost = atmost;
-        else this.atmost = 0;
-
         return this.atmost;
     }
 
-    public void setAtmost(int atmost) {
-        this.atmost = atmost;
-    }
 
     public int getFuzziThreshold() {
-        if (isFuzziness())
-            if (fuzziThreshold <= 0)
-                this.fuzziThreshold = DEFAULT_FUZZINESS;
-            else
-                this.fuzziThreshold = fuzziThreshold;
-        else
-            this.fuzziThreshold = 0;
-
         return fuzziThreshold;
     }
 
-    public void setFuzziThreshold(int fuzziThreshold) {
-        this.fuzziThreshold = fuzziThreshold;
 
+    public static class RequestBuilder {
+
+        private String start;
+
+        private int atmost;
+
+        private boolean fuzziness = false;
+
+        public int defaultFuzziThreshold;
+
+        private int fuzziThreshold;
+
+        private boolean caseSensitive = false;
+
+        private int defaultAtmost;
+
+        public RequestBuilder(String start, int defaultFuzziThreshold, int defaultAtmost) {
+            this.start = start;
+            this.defaultFuzziThreshold = defaultFuzziThreshold;
+            this.defaultAtmost = defaultAtmost;
+        }
+
+        public RequestBuilder setStart(String start) {
+            this.start = start;
+            return this;
+        }
+
+        public RequestBuilder atmost(Integer atMost) {
+            if (!Objects.isNull(atMost) && atMost >= 0)
+                this.atmost = atMost;
+            else
+                atMost = defaultAtmost;
+
+            return this;
+        }
+
+        public RequestBuilder fuzziness(Boolean fuzziness) {
+            this.fuzziness = BooleanUtils.toBooleanDefaultIfNull(fuzziness, false);
+            return this;
+        }
+
+        public RequestBuilder fuzziThreshold(Integer fuzziThreshold) {
+            if (!Objects.isNull(fuzziThreshold) && fuzziThreshold >= 0)
+                this.fuzziThreshold = fuzziThreshold;
+            else
+                this.fuzziThreshold = defaultFuzziThreshold;
+
+            return this;
+        }
+
+        public RequestBuilder caseSensitive(Boolean caseSensitive) {
+            this.caseSensitive = BooleanUtils.toBooleanDefaultIfNull(caseSensitive, false);
+            return this;
+        }
+
+        public AutoSuggestRequest build() {
+            return new AutoSuggestRequest(this);
+        }
     }
 }

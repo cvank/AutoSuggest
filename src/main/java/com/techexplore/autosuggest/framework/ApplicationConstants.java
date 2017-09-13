@@ -6,4 +6,5 @@ package com.techexplore.autosuggest.framework;
 public final class ApplicationConstants {
     public static final String FUZZY = "FUZZY";
     public static final String DEFAULT = "DEFAULT";
+    public static final String NO_RESULTS = "No results";
 }

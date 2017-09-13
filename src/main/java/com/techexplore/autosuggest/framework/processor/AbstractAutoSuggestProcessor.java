@@ -1,6 +1,7 @@
 package com.techexplore.autosuggest.framework.processor;
 
 import com.techexplore.autosuggest.domain.AutoSuggestRequest;
+import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.Response.AutoSuggestResponse;
 import com.techexplore.autosuggest.framework.Response.ResponseCode;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
@@ -8,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -38,5 +40,9 @@ public abstract class AbstractAutoSuggestProcessor {
 
     private void postProcess(List<String> suggestions, AutoSuggestResponse response) {
         response.setSuggestions(suggestions);
+        response.setResponseCode(ResponseCode.Success.AU_S_200);
+        if (Objects.isNull(response) || Objects.isNull(response.getSuggestions())) {
+            response.setResponseMessage(ApplicationConstants.NO_RESULTS);
+        }
     }
 }

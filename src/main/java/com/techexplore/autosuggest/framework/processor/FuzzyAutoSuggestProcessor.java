@@ -4,10 +4,14 @@ import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.techexplore.autosuggest.framework.ApplicationConstants.*;
 
 /**
  * Processor that populates suggestions by incorporating fuzzy logic.
@@ -17,15 +21,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service(value = ApplicationConstants.FUZZY)
 public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
 
+    private static final Logger LOG = LoggerFactory.getLogger(FuzzyAutoSuggestProcessor.class);
+
     private AtomicInteger counter = new AtomicInteger();
 
     @Override
     public List<String> search(AutoSuggestRequest request, final TrieNode root) {
-        getCounter();
-        List<String> suggestions = new ArrayList<>();
-        processFuzzySearch(request.getFuzziThreshold(), request.getStart(), root, request.getAtmost(), suggestions);
-        setCounter(null);
-        return suggestions;
+        Optional<List<String>> suggestions = Optional.empty();
+        switch (request.getSearchAlgorithm()) {
+            case LEVENSHTEIN:
+                getCounter();
+                suggestions = processFuzzySearch(request.getFuzziThreshold(), request.getStart(), root, request.getAtmost());
+                setCounter(null);
+                break;
+            default:
+                suggestions = processInbuiltFuzzySearch(request.getStart(), root, request.getAtmost(), request.getSearchAlgorithm());
+                break;
+
+        }
+
+
+        return suggestions.orElse(new ArrayList<>());
     }
 
     /**
@@ -35,9 +51,9 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
      * @param word
      * @param root
      * @param atMost
-     * @param suggestions
      */
-    private void processFuzzySearch(int fuzziness, String word, final TrieNode root, final int atMost, List<String> suggestions) {
+    private Optional<List<String>> processFuzzySearch(int fuzziness, String word, final TrieNode root, final int atMost) {
+        List<String> suggestions = new ArrayList<>();
 
         // Prepopulate table with default values for the given search term.
         int[] currentRow = new int[word.length() + 1];
@@ -51,6 +67,8 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
         for (Map.Entry<Character, TrieNode> entry : currentNode.getChildren().entrySet())
             searchRecursive(entry.getValue(), entry.getKey(), word, currentRow, fuzziness,
                     word.toCharArray(), atMost, suggestions);
+
+        return Optional.ofNullable(suggestions);
 
     }
 
@@ -119,5 +137,43 @@ public class FuzzyAutoSuggestProcessor extends AbstractAutoSuggestProcessor {
 
     public void setCounter(AtomicInteger counter) {
         this.counter = counter;
+    }
+
+    /**
+     * Perform fuzzy search using appache commons inbuilt algorithms sch as jaro or fuzzyscore.
+     *
+     * @param word
+     * @param root
+     * @param atMost
+     * @param algorithm
+     * @return
+     */
+    private Optional<List<String>> processInbuiltFuzzySearch(final String word, final TrieNode root, int atMost, final String algorithm) {
+
+        List<String> allWords = new ArrayList<>();
+        processInbuiltFuzzySearch(allWords, word, root);
+        LOG.info("Total words rebuilt:" + allWords.size());
+        switch (algorithm) {
+            case FUZZY_SCORE:
+                return SearchAlgorithmUtil.applyFuzzy(word, allWords, atMost);
+            default:
+                return SearchAlgorithmUtil.applyJaro(word, allWords, atMost);
+        }
+    }
+
+    private void processInbuiltFuzzySearch(List<String> allWords, String word, final TrieNode root) {
+
+        if (root.isTerminated()) {
+            allWords.add(root.getWord());
+        }
+
+        if (root.getChildren().size() == 0)
+            return;
+
+        for (Map.Entry<Character, TrieNode> entry : root.getChildren().entrySet()) {
+            processInbuiltFuzzySearch(allWords, word, entry.getValue());
+        }
+
+
     }
 }

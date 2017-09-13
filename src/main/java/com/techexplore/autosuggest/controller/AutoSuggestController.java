@@ -28,6 +28,9 @@ public class AutoSuggestController {
     @Value("${default.atmost}")
     private Integer defaultAtmost;
 
+    @Value("${default.search.algorithm}")
+    private String defaultSearchAlgorithm;
+
     @Autowired
     AutoSuggestInvoker invoker;
 
@@ -45,10 +48,11 @@ public class AutoSuggestController {
                                 @RequestParam(value = "atmost", required = false) Integer atMost,
                                 @RequestParam(value = "fuzzy", required = false) Boolean fuzziness,
                                 @RequestParam(value = "threshold", required = false) Integer fuzziThreshold,
-                                @RequestParam(value = "casesensitive", required = false) Boolean caseSensitive) throws AutoSuggestException {
+                                @RequestParam(value = "casesensitive", required = false) Boolean caseSensitive,
+                                @RequestParam(value = "alg", required = false) String algorithm) throws AutoSuggestException {
 
         try {
-            AutoSuggestResponse response = triggerSearch(start, atMost, fuzziness, fuzziThreshold, caseSensitive);
+            AutoSuggestResponse response = triggerSearch(start, atMost, fuzziness, fuzziThreshold, caseSensitive, algorithm);
             return response;
         } catch (Exception ex) {
             throw new AutoSuggestException(ex.getMessage());
@@ -73,11 +77,12 @@ public class AutoSuggestController {
                     @RequestParam(value = "atmost", required = false) Integer atMost,
                     @RequestParam(value = "fuzzy", required = false) Boolean fuzziness,
                     @RequestParam(value = "threshold", required = false) Integer fuzziThreshold,
-                    @RequestParam(value = "case", required = false) Boolean caseSensitive)
+                    @RequestParam(value = "case", required = false) Boolean caseSensitive,
+                    @RequestParam(value = "alg", required = false) String algorithm)
             throws AutoSuggestException {
         LOG.info("Initiating auto suggestion feature. prefix:" + start);
         try {
-            AutoSuggestResponse response = triggerSearch(start, atMost, fuzziness, fuzziThreshold, caseSensitive);
+            AutoSuggestResponse response = triggerSearch(start, atMost, fuzziness, fuzziThreshold, caseSensitive, algorithm);
             if (Objects.isNull(response) || Objects.isNull(response.getSuggestions())) {
                 return ApplicationConstants.NO_RESULTS;
             }
@@ -98,18 +103,15 @@ public class AutoSuggestController {
      * @param caseSensitive
      * @return
      */
-    private AutoSuggestResponse triggerSearch(String start,
-                                              Integer atMost,
-                                              Boolean fuzziness,
-                                              Integer fuzziThreshold,
-                                              Boolean caseSensitive) {
+    private AutoSuggestResponse triggerSearch(String start, Integer atMost, Boolean fuzziness, Integer fuzziThreshold, Boolean caseSensitive, String algorithm) {
 
         // Populate request object
         AutoSuggestRequest request = new AutoSuggestRequest
-                .RequestBuilder(start, defaultFuziThreshold, defaultAtmost)
+                .RequestBuilder(start, defaultFuziThreshold, defaultAtmost, defaultSearchAlgorithm)
                 .atmost(atMost).fuzziness(fuzziness)
                 .fuzziThreshold(fuzziThreshold)
                 .caseSensitive(caseSensitive)
+                .algorithm(algorithm)
                 .build();
 
         AutoSuggestResponse response = new AutoSuggestResponse();

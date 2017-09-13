@@ -7,6 +7,17 @@ http://localhost:8080/suggest_cities?start=port&atmost=10
 **Fuzzy Search:**
 http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&threshold=4
 
+**Three types of Fuzzy search has been implemented.**
+**1. Levenshtein**
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=levenshtein
+
+**2. Jaro Winkler Distance**
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true&alg=jaro
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=true
+
+**3. Apache commons inbuilt Fuzzy Score search**
+http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=fuzzyscore
+
 
 ### Endpoint to generate JSON response
 * Normal

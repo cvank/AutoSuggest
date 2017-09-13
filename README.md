@@ -18,20 +18,20 @@ http://localhost:8080/suggest_cities1?start=oprtblair&atmost=10&fuzzy=true&thres
 
 ### How to run:
 
-** Method 1: Build & Run **
-Clone code 
+**Method 1: Build & Run**
+* Clone code 
 ```
 git clone https://github.com/cvank/AutoSuggest
 ```
-go to parent folder
-run command - ```mvn clean install```
-cd to target directory
-and run following command.
+* go to parent folder
+* run command - ```mvn clean install```
+* cd to target directory
+* And run following command.
 ```java -jar assesment-0.0.1-SNAPSHOT.jar```
 
 ** Method 2:**
-go to run folder
+* Go to run folder at below location
 https://github.com/cvank/AutoSuggest/tree/master/run
-download jar
-and run command
+* download jar
+* And run command
 ```java -jar assesment-0.0.1-SNAPSHOT.jar```

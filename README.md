@@ -28,7 +28,7 @@ http://localhost:8080/suggest_cities?start=oprtblair&atmost=10&fuzzy=fuzzyscore
 * **start:** start of the search word - **required**
 * **atmost:** maximum results required to be displayed -**optional, default is 10**
 * **fuzzy:** (true/false): fuzzy search -**optional, default is false**
-* **alg:** Fuzzy search algorithm (**Jaro** by default.**levenshtein,fuzzyscore** are other two parameters) -**optional, default is jaro. Applicable only if fuzzy is true**
+* **alg:** Fuzzy search algorithm (**jaro** by default.**levenshtein,fuzzyscore** are other two parameters) -**optional, default is jaro. Applicable only if fuzzy is true**
 * **threshold:** (only for Levenshtein): the more the value of threshold, the  liberal the results will be. - **optional, if fuzzy is true and levenshtein algorithm chosen then default is 3**
 
 

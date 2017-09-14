@@ -1,5 +1,9 @@
 # AutoSuggest
 
+### Javadocs location -  https://cvank.github.io/AutoSuggest/
+
+**UML diagrams available under uml folder
+
 ### Auto Suggestion Scenarios:
 **Normal Search:**
 http://localhost:8080/suggest_cities?start=port&atmost=10

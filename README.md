@@ -2,7 +2,7 @@
 
 ### Javadocs location -  https://cvank.github.io/AutoSuggest/
 
-**UML diagrams available under uml folder
+**UML diagrams available under uml folder**
 
 ### Auto Suggestion Scenarios:
 **Normal Search:**

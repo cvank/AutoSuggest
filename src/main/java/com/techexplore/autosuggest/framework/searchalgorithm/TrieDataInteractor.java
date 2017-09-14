@@ -1,13 +1,8 @@
 package com.techexplore.autosuggest.framework.searchalgorithm;
 
-import com.techexplore.autosuggest.framework.processor.SearchAlgorithmUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import static com.techexplore.autosuggest.framework.ApplicationConstants.FUZZY_SCORE;
 
 /**
  * Created by chandrashekar.v on 9/14/2017.

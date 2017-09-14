@@ -2,9 +2,7 @@ package com.techexplore.autosuggest.framework.processor.fuzzy;
 
 import com.techexplore.autosuggest.domain.AutoSuggestRequest;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
-import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

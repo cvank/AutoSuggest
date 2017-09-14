@@ -5,7 +5,6 @@ import com.techexplore.autosuggest.framework.ApplicationConstants;
 import com.techexplore.autosuggest.framework.processor.SearchAlgorithmUtil;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieDataInteractor;
 import com.techexplore.autosuggest.framework.searchalgorithm.TrieNode;
-import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

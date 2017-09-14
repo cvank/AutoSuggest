@@ -18,7 +18,7 @@ import java.util.Optional;
  * Created by chandrashekar.v on 9/14/2017.
  */
 @Component(value = ApplicationConstants.FUZZY_SCORE)
-public class FuzzyScoreStrategy implements FuzzyStrategy {
+public class FuzzyScoreStrategy extends TrieDataInteractor implements FuzzyStrategy {
 
 
     private static final Logger LOG = LoggerFactory.getLogger(FuzzyScoreStrategy.class);

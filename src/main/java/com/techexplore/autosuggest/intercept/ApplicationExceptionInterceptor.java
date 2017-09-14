@@ -3,7 +3,6 @@ package com.techexplore.autosuggest.intercept;
 import com.techexplore.autosuggest.framework.exception.AutoSuggestException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;

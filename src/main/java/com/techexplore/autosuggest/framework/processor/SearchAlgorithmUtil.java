@@ -1,5 +1,7 @@
 package com.techexplore.autosuggest.framework.processor;
 
+import com.techexplore.autosuggest.framework.processor.fuzzy.FuzzyScoreStrategy;
+import com.techexplore.autosuggest.framework.processor.fuzzy.JaroWinklerDistanceStrategy;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.FuzzyScore;
 import org.apache.commons.text.similarity.JaroWinklerDistance;
@@ -10,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Created by chandrashekar.v on 9/13/2017.
  */
-public final class SearchAlgorithmUtil {
+public final class SearchAlgorithmUtil extends FuzzyScoreStrategy {
 
     private static final JaroWinklerDistance jaroWinklerDistance = new JaroWinklerDistance();
     private static final FuzzyScore fuzzyScore = new FuzzyScore(Locale.getDefault());

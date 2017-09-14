@@ -1,6 +1,5 @@
 package com.techexplore.autosuggest.framework.processor.fuzzy;
 
-import com.techexplore.autosuggest.framework.ApplicationConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

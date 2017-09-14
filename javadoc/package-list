@@ -6,6 +6,7 @@ com.techexplore.autosuggest.framework.Response
 com.techexplore.autosuggest.framework.data
 com.techexplore.autosuggest.framework.exception
 com.techexplore.autosuggest.framework.processor
+com.techexplore.autosuggest.framework.processor.fuzzy
 com.techexplore.autosuggest.framework.searchalgorithm
 com.techexplore.autosuggest.intercept
 com.techexplore.autosuggest.service
